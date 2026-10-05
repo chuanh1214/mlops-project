@@ -1,0 +1,10 @@
+Subject,Start Date,Start Time,End Date,End Time,Description
+"🐍 [Python + SQL] Cấu trúc dữ liệu & Truy vấn cơ bản",09/18/2026,08:30 AM,09/18/2026,11:30 AM,"Python: Ôn tập List, Dict, Tuple phục vụ data pipeline. SQL: Luyện SELECT, WHERE, ORDER BY, COUNT, SUM, AVG."
+"🇬🇧 [English] Từ vựng TOEIC Listening Part 3 & 4",09/18/2026,02:00 PM,09/18/2026,04:30 PM,"Luyện nghe đề TOEIC Part 3 & Part 4 chủ đề công sở, lịch trình. Ghi chú bẫy từ đồng nghĩa (paraphrasing)."
+"🛑 Lịch làm việc ca tối tại quán",09/18/2026,06:00 PM,09/18/2026,11:00 PM,"Ca làm việc tối cố định tại cửa hàng."
+"🇬🇧 [English] Đọc hiểu tài liệu IT & TOEIC Part 7",09/19/2026,09:00 AM,09/19/2026,11:30 AM,"Đọc Python Documentation/blog công nghệ DE-DS. Giải đề TOEIC Part 7 luyện Skimming & Scanning."
+"🐍 [Python + SQL] Kết nối Cơ sở dữ liệu với Python",09/19/2026,02:00 PM,09/19/2026,04:30 PM,"Sử dụng sqlite3/psycopg2 để kết nối database. Viết code Python tạo bảng và nạp dữ liệu bằng lệnh SQL."
+"🛑 Lịch làm việc ca tối tại quán",09/19/2026,06:00 PM,09/19/2026,11:00 PM,"Ca làm việc tối cố định tại cửa hàng."
+"🐍 [Python] Phân tích dữ liệu nâng cao với Pandas",09/20/2026,08:30 AM,09/20/2026,11:30 AM,"Học thư viện Pandas. Thực hành DataFrame.merge() so sánh tương ứng với lệnh JOIN trong SQL."
+"🇬🇧 [English] Phản xạ giao tiếp & Tiếng Anh công sở",09/20/2026,02:00 PM,09/20/2026,04:30 PM,"Tập nói/viết tóm tắt tiếng Anh giải thích cấu trúc database đã làm. Luyện format TOEIC Speaking."
+"📊 [Review] Ôn tập tổng hợp & Mini-test TOEIC",09/20/2026,07:30 PM,09/20/2026,09:30 PM,"Chạy lại code Python kết nối DB đã viết. Làm bài test ngắn TOEIC 30 phút để đánh giá từ vựng."
