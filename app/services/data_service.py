@@ -17,7 +17,10 @@ class DataService:
             f.write(content)
 
         #Dùng Pandas đọc file để lấy thông tin dòng/cột
-        df = pd.read_csv(file_path)
+        try:
+            df = pd.read_csv(file_path, encoding='utf-8')
+        except UnicodeDecodeError:
+            df = pd.read_csv(file_path, encoding='latin1')
 
         return {
             "filename": file.filename,

@@ -6,7 +6,7 @@ class FileUploadResponse(BaseModel):
     filename:str
     file_path: str
     message: str
-    total_rows: str
+    total_rows: int
     columns: List[str]
 
 #Model tra ve danh sach cac file CSV da upload
