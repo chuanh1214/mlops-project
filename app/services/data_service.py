@@ -1,7 +1,10 @@
 import os
 import pandas as pd
+from pathlib import Path
 from fastapi import UploadFile
+from app.config import get_database
 
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 UPLOAD_DIR = "uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
@@ -22,10 +25,30 @@ class DataService:
         except UnicodeDecodeError:
             df = pd.read_csv(file_path, encoding='latin1')
 
+        #Chuẩn bị metadata & mẫu dữ liệu (5 dòng đầu)
+        db = get_database()
+        records = df.head(10).to_dict(orient="records")
+
+        document={
+            "filename": file.filename,
+            "file_path": str(file_path),
+            "total_rows": len(df),
+            "total_columns": len(df.columns),
+            "columns": list(df.columns),
+            "sample_data": records
+        }
+
+        #Lưu metadata vào MongoDB
+        await db["datasets"].update_one(
+            {"filename": file.filename},
+            {"$set": document},
+            upsert=True
+        )
+
         return {
             "filename": file.filename,
             "file_path": file_path,
-            "message":"Upload file thành công!",
+            "message":"Upload file và lưu và MongoDB thành công!",
             "total_rows": len(df),
             "columns": list(df.columns)
         }
@@ -50,3 +73,9 @@ class DataService:
             "total_files": len(files),
             "files": files
         }
+    @staticmethod
+    async def get_dataset_details(filename: str) -> dict:
+        """Lấy thông tin dữ liệu đã lưu trong MongoDB theo tên file"""
+        db = get_database()
+        dataset = await db["datasets"].find_one({"filename": filename}, {"_id": 0})
+        return dataset

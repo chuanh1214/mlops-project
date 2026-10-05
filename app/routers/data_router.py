@@ -20,3 +20,11 @@ async def upload_csv_file(file: UploadFile = File(...)):
 def list_uploaded_data():
     """API lấy danh sách thông tin các file dữ liệu đã upload"""
     return DataService.get_uploaded_files()
+
+#Lấy chi tiết dataset & preview từ MongoDB
+@router.get("/detail/{filename}")
+async def get_data_detail(filename: str):
+    data = await DataService.get_dataset_details(filename)
+    if not data:
+        raise HTTPException(status_code= 404, detail="Không tìm thấy file trong CSDL MongoDB!")
+    return data
