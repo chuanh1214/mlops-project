@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.routers import data_router
+from app.routers import data_router, automl_router
 
 app = FastAPI(
     title="MLOps & Data Processing API",
@@ -9,6 +9,7 @@ app = FastAPI(
 
 #Đăng ký router dữ liệu
 app.include_router(data_router.router)
+app.include_router(automl_router.router)
 
 @app.get("/")
 def root():
