@@ -1,0 +1,25 @@
+services:
+  web_app:
+    build: .
+    container_name: mlops_fastapi_app
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGO_URL=mongodb://mongo_db:27017
+    depends_on:
+      - mongo_db
+    volumes:
+      - ./uploads:/app/uploads
+
+  mongo_db:
+    image: mongo:latest
+    container_name: mlops_mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
