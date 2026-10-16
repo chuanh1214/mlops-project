@@ -1,7 +1,7 @@
-fastapi
-uvicorn
-motor
-pandas
-scikit-learn
-pydantic
-python-multipart
+fastapi==0.110.0
+uvicorn==0.28.0
+motor==3.3.2
+pandas==2.2.1
+scikit-learn==1.4.1post1
+pydantic==2.6.4
+python-multipart==0.0.9
