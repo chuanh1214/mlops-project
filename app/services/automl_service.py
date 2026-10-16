@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 from sklearn.metrics import accuracy_score, mean_squared_error
 from app.config import get_database
+from app.services.preprocessing_service import PreprocessingSerice
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 UPLOAD_DIR = BASE_DIR / "uploads"
@@ -24,19 +25,21 @@ class AutoMLService:
         if target_column not in df.columns:
             return {"error": f"Cột mục tiêu '{target_column}' không tồn tại trong dataset!"}
 
-        #Tiền xử lý cơ bản: Xóa các dòng thiếu giá trị ở cột target, chọn các cột số (numeric) làm feature
-        df = df.dropna(subset = [target_column])
-        X = df.select_dtypes(include=['number']).drop(columns=[target_column], errors='ignore')
-        y = df[target_column]
-
+        #Gọi Service Tiền xử lý dữ liệu (Missing values, Encoding, Scaling)
+        try:
+            X,y = PreprocessingSerice.clean_and_preprocess(df, target_column)
+        except Exception as e:
+            return {"error": f"Lỗi tiền xử lý dữ liệu: {str(e)}"} 
+        
         if X.empty:
-            return {"error": "Không tìm thấy cột dữ liệu dạng số (numeric features) phù hợp để huấn luyện!"}
+            return {"error": "Dữ liệu sau khi tiền xử lý không còn cột đặc trưng hợp lệ để huấn luyện!"}
 
         #Chia train/test split (80/20)
         X_train, X_test, y_train, y_test = train_test_split(X,y,test_size = 0.2, random_state=42)
 
         #Tự động nhận diện bài toán (Classification hay Regression) dựa trên kiểu dữ liệu của y
-        is_classification = y.nunique() < 20 or y.dtype == 'object' or pd.api.types.is_categorical_dtype(y)
+        n_unique = pd.Series(y).nunique()
+        is_classification = n_unique < 20 or (hasattr(y, 'dtype') and (y.dtype == 'object' or pd.api.types.is_categorical_dtype(y)))
 
         if is_classification:
             model = RandomForestClassifier(random_state=42)
@@ -67,6 +70,6 @@ class AutoMLService:
         train_result.pop("_id", None)
 
         return{
-            "message": "Huấn luyện mô hình AutoML thành công!",
+            "message": "Tiền xử lý dữ liệu và huấn luyện mô hình AutoML thành công!",
             "details": train_result
         }

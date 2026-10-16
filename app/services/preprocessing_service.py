@@ -37,7 +37,7 @@ class PreprocessingSerice:
         #2.Ma hoa (Encoding) cac bien phan loai thanh dang so
         for col in cat_cols:
             label = LabelEncoder()
-            df[col] = label.fit_transrom(df[col].astype(str))
+            df[col] = label.fit_transform(df[col].astype(str))
 
         if target_column not in df.columns:
             raise ValueError(f"Cột mục tiêu'{target_column}' không tồn tại trong dataset.")
@@ -48,7 +48,7 @@ class PreprocessingSerice:
         #Nếu target là dạng chữ (classsification), mã hóa target luôn
         if y.dtype == 'object' or pd.api.types.is_categorical_dtype(y):
             target_label = LabelEncoder()
-            y = target_label.fit_transfrom(y.astype(str))
+            y = target_label.fit_transform(y.astype(str))
 
         #3.Chuẩn hóa (Normalization/Standardization) các cột số
         current_numeric_cols = X.select_dtypes(include=['number']).columns.tolist()
