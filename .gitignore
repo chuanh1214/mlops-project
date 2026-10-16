@@ -1,0 +1,12 @@
+# Python bytecode và cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Thư mục môi trường ảo (nếu có)
+venv/
+env/
+mlops_env/
+
+# Thư mục uploads dữ liệu (tùy chọn nếu không muốn đồng bộ file CSV lên git)
+uploads/
