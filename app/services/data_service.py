@@ -25,7 +25,7 @@ class DataService:
         except UnicodeDecodeError:
             df = pd.read_csv(file_path, encoding='latin1')
 
-        #Chuẩn bị metadata & mẫu dữ liệu (5 dòng đầu)
+        #Chuẩn bị metadata & mẫu dữ liệu (10 dòng đầu)
         db = get_database()
         records = df.head(10).to_dict(orient="records")
 
